@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+@model FoodOnline.Application.DTOs.ViewModel.OrderIndexViewModel
+
+<h1>Orders</h1>
+
+<form method="get" asp-action="Index">
+    <div>
+        <label>Status</label>
+        <select asp-for="SearchRequest.StatusId" asp-items="@(new SelectList(Model.OrderStatuses, "Id", "Name"))">
+            <option value="">-- Select Status --</option>
+        </select>
+    </div>
+    <div>
+        <label>Is Paid</label>
+        <div>
+            <input type="radio" id="paidAll" name="SearchRequest.IsPaid" value="" @(Model.SearchRequest.IsPaid == null ? "checked" : "") />
+            <label for="paidAll">All</label>
+        </div>
+        <div>
+            <input type="radio" id="paidYes" name="SearchRequest.IsPaid" value="true" @(Model.SearchRequest.IsPaid == true ? "checked" : "") />
+            <label for="paidYes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="paidNo" name="SearchRequest.IsPaid" value="false" @(Model.SearchRequest.IsPaid == false ? "checked" : "") />
+            <label for="paidNo">No</label>
+        </div>
+    </div>
+    <div>
+        <label>Is Confirmed</label>
+        <div>
+            <input type="radio" id="confirmAll" name="SearchRequest.IsConfirm" value="" @(Model.SearchRequest.IsConfirm == null ? "checked" : "") />
+            <label for="confirmAll">All</label>
+        </div>
+        <div>
+            <input type="radio" id="confirmYes" name="SearchRequest.IsConfirm" value="true" @(Model.SearchRequest.IsConfirm == true ? "checked" : "") />
+            <label for="confirmYes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="confirmNo" name="SearchRequest.IsConfirm" value="false" @(Model.SearchRequest.IsConfirm == false ? "checked" : "") />
+            <label for="confirmNo">No</label>
+        </div>
+    </div>
+    <div>
+        <label>From Date</label>
+        <input type="date" asp-for="SearchRequest.FromDate" />
+    </div>
+    <div>
+        <label>To Date</label>
+        <input type="date" asp-for="SearchRequest.ToDate" />
+    </div>
+    <div>
+        <input type="submit" value="Filter" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order Code</th>
+            <th>Status</th>
+            <th>Is Paid</th>
+            <th>Is Confirmed</th>
+            <th>Is COD</th>
+            <th>Ordered Date</th>
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders.Items)
+        {
+            <tr>
+                <td>@order.OrderCode</td>
+                <td>@order.StatusId</td>
+                <td>@order.IsPaid</td>
+                <td>@order.IsConfirm</td>
+                <td>@order.IsCOD</td>
+                <td>@(order.OrderedDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
+
+                <!-- Add more columns as needed -->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.Orders.HasPreviousPage)
+    {
+        <a asp-action="Index" asp-route-pageIndex="@(Model.Orders.PageIndex - 1)" asp-route-statusId="@Model.SearchRequest.StatusId" asp-route-isPaid="@Model.SearchRequest.IsPaid" asp-route-isConfirm="@Model.SearchRequest.IsConfirm" asp-route-fromDate="@Model.SearchRequest.FromDate" asp-route-toDate="@Model.SearchRequest.ToDate">Previous</a>
+    }
+    @if (Model.Orders.HasNextPage)
+    {
+        <a asp-action="Index" asp-route-pageIndex="@(Model.Orders.PageIndex + 1)" asp-route-statusId="@Model.SearchRequest.StatusId" asp-route-isPaid="@Model.SearchRequest.IsPaid" asp-route-isConfirm="@Model.SearchRequest.IsConfirm" asp-route-fromDate="@Model.SearchRequest.FromDate" asp-route-toDate="@Model.SearchRequest.ToDate">Next</a>
+    }
+</div>
