@@ -65,7 +65,7 @@ namespace FoodOnline.Application.Mapping
             //Order map
             CreateMap<Order, OrderGetDTO>()
                 .ForMember(dest => dest.BranchName, opt => opt.MapFrom(src => $" {src.Branch.Name} - {src.Branch.Detail} {src.Branch.Ward}, {src.Branch.District}, {src.Branch.City}"))
-                .ForMember(dest => dest.OrderedDate, opt => opt.MapFrom(src => src.OrderStatus.Name))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.OrderStatus.Name))
                 .ForMember(dest => dest.UserOrder, opt => opt.MapFrom(src => src.Customer.UserName));
 
             CreateMap<Order, OrderPostDTO>().ReverseMap();

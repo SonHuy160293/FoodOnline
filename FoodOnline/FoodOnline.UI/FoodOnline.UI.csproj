@@ -29,7 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodOnline.DataAccess\FoodOnline.DataAccess.csproj" />
     <ProjectReference Include="..\FoodOnline.Infrastructure\FoodOnline.Infrastructure.csproj" />
-    <ProjectReference Include="..\FoodOnline.Utils\FoodOnline.Utils.csproj" />
+   
   </ItemGroup>
 
 </Project>
