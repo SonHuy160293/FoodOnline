@@ -83,34 +83,39 @@
                 <td>@order.Status</td>
                @{
                    if( @order.IsPaid == true){
-                        <td>Đã thanh toán</td>
+                                <td>Đã thanh toán</td>
                    }
                    else{
-                        <td>Chưa thanh toán</td>
+                                <td>Chưa thanh toán</td>
                    }
                }
                 @{
                     if (@order.IsConfirm == true)
                     {
-                        <td>Đã xác nhận</td>
+                                <td>Đã xác nhận</td>
                     }
                     else
                     {
-                        <td>Chưa xác nhận</td>
+                                <td>Chưa xác nhận</td>
                     }
                 }
                 @{
                     if (@order.IsCOD == true)
                     {
-                        <td>COD</td>
+                                <td>COD</td>
                     }
                     else
                     {
-                        <td>Online</td>
+                                <td>Online</td>
                     }
                 }
                 <td>@(order.OrderedDate?.ToString("dd/MM/yyyy") ?? "N/A")</td>
-                <td><button class="btn btn-outline-success">Update</button></td>
+                <td>
+                    <form method="get" action="@Url.Action("UpdateOrder", "Order")" style="display:inline;">
+                        <input type="hidden" name="orderCode" value="@order.OrderCode" />
+                        <button type="submit" class="btn btn-outline-success">Update</button>
+                    </form>
+                </td>
 
                 <!-- Add more columns as needed -->
             </tr>
@@ -188,3 +193,10 @@
         </ul>
     </nav>
 </div>
+
+
+
+
+@section Scripts{
+   
+}

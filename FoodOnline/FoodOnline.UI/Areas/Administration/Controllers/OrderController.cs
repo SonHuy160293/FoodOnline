@@ -1,4 +1,6 @@
 ﻿using FoodOnline.Application.DTOs;
+using FoodOnline.Application.DTOs.GetDTO;
+using FoodOnline.Application.DTOs.PostDTO;
 using FoodOnline.Application.DTOs.ViewModel;
 using FoodOnline.Application.IService;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +68,73 @@ namespace FoodOnline.UI.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateOrder(long orderCode)
+        {
+            if (orderCode <= 0)
+            {
+                return BadRequest(new { message = "Invalid order code." });
+            }
+
+            var order = await _orderService.GetOrderByCode(orderCode);
+            if (order == null)
+            {
+                return NotFound(new { message = "Order not found." });
+            }
+
+            var orderDetails = await _orderService.GetOrderDetailsByOrderId(order.Id);
+            var statuses = await _orderService.GetOrderStatusesAsync();
+
+            var orderModel = new OrderDetailViewModel
+            {
+                Order = new OrderGetDTO
+                {
+                    Id = order.Id,
+                    OrderCode = order.OrderCode,
+                    Status = order.Status,
+                    IsPaid = order.IsPaid,
+                    IsConfirm = order.IsConfirm,
+                    IsCOD = order.IsCOD,
+                    OrderedDate = order.OrderedDate,
+                    StatusId = order.StatusId
+                },
+                OrderDetails = orderDetails.Select(d => new OrderDetailGetDTO
+                {
+                    ProductName = d.ProductName,
+                    Quantity = d.Quantity
+                }).ToList(),
+                Statuses = statuses.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name
+                }).ToList()
+            };
+
+            return View(orderModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateOrder([FromForm] OrderUpdateDTO orderUpdateDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { status = false, message = "Invalid data." });
+            }
+
+            var response = await _orderService.UpdateOrderAsync(orderUpdateDTO);
+
+            if (response.Status)
+            {
+                return Json(new { status = true, message = "Order updated successfully." });
+            }
+            else
+            {
+                return Json(new { status = false, message = response.Message });
+            }
+        }
+
+
 
     }
 }

@@ -142,7 +142,13 @@ namespace FoodOnline.Application.Service
         {
             try
             {
-                var order = _mapper.Map<Order>(orderUpdateDTO);
+                var order = await _unitOfWork.OrderRepository.GetOrderAsync(o => o.Id == orderUpdateDTO.Id);
+                order.StatusId = orderUpdateDTO.StatusId;
+                if (orderUpdateDTO.StatusId == OrderStatusConstant.Done)
+                {
+                    order.IsPaid = true;
+
+                }
                 order.LastModifiedBy = await _commonService.GetCurrentUser() ?? String.Empty;
                 int result = await _unitOfWork.OrderRepository.UpdateAsync(order);
                 var status = result > 0;
