@@ -25,7 +25,7 @@ namespace FoodOnline.Infrastructure.Services
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Your Name", smtpUser));
-            message.To.Add(new MailboxAddress("", "sonhuy060402@gmail.com"));
+            message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = subject;
 
             var bodyBuilder = new BodyBuilder { HtmlBody = body };

@@ -67,15 +67,17 @@ namespace FoodOnline.Application.Service
 
 
         //order
-        public async Task<PaginatedList<OrderGetDTO>> GetOrdersByStatusAsync(OrderSeachRequestAdmin? orderSeachRequest)
+        public async Task<PaginatedList<OrderGetDTO>> GetOrdersByStatusAsync(OrderSeachRequestAdmin? orderSeachRequest, int? branchId)
         {
             // Build the filter expression
             Expression<Func<Order, bool>> filter = o =>
                 (!orderSeachRequest.StatusId.HasValue || o.StatusId == orderSeachRequest.StatusId) &&
                 (!orderSeachRequest.IsConfirm.HasValue || o.IsConfirm == orderSeachRequest.IsConfirm) &&
                 (!orderSeachRequest.IsPaid.HasValue || o.IsPaid == orderSeachRequest.IsPaid) &&
+                (branchId < 0 || o.BranchId == branchId) &&
                 (!orderSeachRequest.FromDate.HasValue || o.OrderedDate >= orderSeachRequest.FromDate) &&
                 (!orderSeachRequest.ToDate.HasValue || o.OrderedDate <= orderSeachRequest.ToDate);
+
 
             var orders = await _unitOfWork.OrderRepository.GetOrdersAsync(filter);
             var orderDTO = _mapper.Map<IEnumerable<OrderGetDTO>>(orders);
@@ -176,6 +178,7 @@ namespace FoodOnline.Application.Service
                 var order = await _unitOfWork.OrderRepository.GetOrderAsync(o => o.OrderCode == code);
                 order.IsPaid = paymentStatus;
                 order.IsConfirm = true;
+                order.StatusId = OrderStatusConstant.Prepare;
                 int result = await _unitOfWork.OrderRepository.UpdateAsync(order);
                 var status = result > 0;
                 return new ResponseModel()
@@ -203,6 +206,7 @@ namespace FoodOnline.Application.Service
             {
                 var order = await _unitOfWork.OrderRepository.GetOrderAsync(o => o.OrderCode == code);
                 order.IsConfirm = confirmStatus;
+                order.StatusId = OrderStatusConstant.Prepare;
 
                 int result = await _unitOfWork.OrderRepository.UpdateAsync(order);
                 var status = result > 0;

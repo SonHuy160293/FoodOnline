@@ -12,7 +12,7 @@ namespace FoodOnline.Application.IService
 
 
         //order
-        Task<PaginatedList<OrderGetDTO>> GetOrdersByStatusAsync(OrderSeachRequestAdmin? orderSeachRequest);
+        Task<PaginatedList<OrderGetDTO>> GetOrdersByStatusAsync(OrderSeachRequestAdmin? orderSeachRequest, int? branchId);
         Task<PaginatedList<OrderGetDTO>> GetOrdersByUserAsync(OrderSeachRequest orderSeachRequest);
         Task<OrderGetDTO> GetOrderByCode(long code);
         Task<ResponseModel> InsertOrderAsync(OrderPostDTO orderPostDTO);

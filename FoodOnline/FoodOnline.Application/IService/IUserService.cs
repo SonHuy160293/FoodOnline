@@ -11,5 +11,6 @@ namespace FoodOnline.Application.IService
         Task<UserGetDTO> GetUserById(string id);
         Task<ResponseModel> Delete(string id);
         Task<CustomerGetDTO> GetCustomerById(string id);
+
     }
 }

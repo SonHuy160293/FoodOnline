@@ -111,6 +111,7 @@ namespace FoodOnline.UI.Controllers
                     var accountId = registerResponse.Data.ToString();
                     var address = new UserAddressPostDTO()
                     {
+                        IsDefault = true,
                         City = registerViewModel.City,
                         District = registerViewModel.District,
                         Ward = registerViewModel.Ward,

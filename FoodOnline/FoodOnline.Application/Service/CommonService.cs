@@ -2,6 +2,7 @@
 using FoodOnline.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Security.Claims;
 
@@ -10,10 +11,12 @@ namespace FoodOnline.Application.Service
     public class CommonService : ICommonService
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CommonService(SignInManager<ApplicationUser> signInManager, IHttpContextAccessor httpContextAccessor)
+        public CommonService(SignInManager<ApplicationUser> signInManager, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -95,6 +98,14 @@ namespace FoodOnline.Application.Service
             }
 
             return await Task.FromResult(string.Empty);
+        }
+
+        public async Task<int?> GetCurrentUserBranch()
+        {
+            var userId = await GetCurrentUserId();
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            return user == null ? -1 : user.BranchId;
         }
     }
 }

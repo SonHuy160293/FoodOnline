@@ -40,19 +40,25 @@ namespace FoodOnline.Infrastructure.Services
             {
                 return null; // Return early if there are no branches
             }
+            var listFee = new List<FeeDTO>();
+            foreach (var branch in branches)
+            {
+                var feeDTO = await GetShippingFeeForBranchAsync(branch, userAddress);
+                listFee.Add(feeDTO);
+            }
+            return listFee.OrderBy(f => f?.Fee).FirstOrDefault();
 
-            var tasks = branches.Select(branch => GetShippingFeeForBranchAsync(branch, userAddress)).ToArray();
-            var feeDTOs = await Task.WhenAll(tasks);
 
-            // Return the highest fee, or null if the list is empty
-            return feeDTOs.OrderByDescending(f => f?.Fee).FirstOrDefault();
         }
 
         private async Task<FeeDTO> GetShippingFeeForBranchAsync(BranchDetailGetDTO branch, UserAddressDetailGetDTO userAddress)
         {
-            var requestUrl = $"{_apiFeeUrl}?pick_address={branch.Detail}&pick_province={branch.City}&pick_district={branch.District}&pick_ward={branch.Street}&address={userAddress.Detail}&province={userAddress.City}&district={userAddress.District}&ward={userAddress.Street}&weight=1000&delivery_option=xteam";
 
-            using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+
+            var url = $"{_apiFeeUrl}?weight=1000&deliver_option=xteam&address={userAddress.Detail}&province={userAddress.City}&district={userAddress.District}&pick_province={branch.City}&pick_district={branch.District}&tags%5B%5D=1&pick_address={userAddress.Detail}";
+            var requestUrl = $"{_apiFeeUrl}?pick_address={branch.Detail}&pick_province={branch.City}&pick_district={branch.District}&pick_ward={branch.Ward}&address={userAddress.Detail}&province={userAddress.City}&district={userAddress.District}&ward={userAddress.Street}&weight=1000&delivery_option=xteam";
+
+            using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, url);
             var response = await _httpClient.SendAsync(httpRequestMessage);
 
             if (response.IsSuccessStatusCode)

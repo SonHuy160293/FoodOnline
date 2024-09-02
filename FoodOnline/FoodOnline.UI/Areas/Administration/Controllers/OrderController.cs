@@ -21,6 +21,7 @@ namespace FoodOnline.UI.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index(OrderSeachRequestAdmin searchRequest)
         {
+            var userBranch = await _commonService.GetCurrentUserBranch();
             // Initialize searchRequest if it is null
             if (searchRequest == null)
             {
@@ -38,7 +39,7 @@ namespace FoodOnline.UI.Areas.Admin.Controllers
             }
 
             // Fetch filtered and paginated orders
-            var orders = await _orderService.GetOrdersByStatusAsync(searchRequest);
+            var orders = await _orderService.GetOrdersByStatusAsync(searchRequest, userBranch);
 
             // Fetch order statuses for dropdown
             var statuses = await _orderService.GetOrderStatusesAsync();
