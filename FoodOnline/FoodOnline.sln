@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B0EF073C-7B77-4257-8506-F13427B0F54F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.Application", "FoodOnline.Application\FoodOnline.Application.csproj", "{7C0A8F96-940A-4C58-A03E-F94BF9EC4621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOnline.Application", "FoodOnline.Application\FoodOnline.Application.csproj", "{7C0A8F96-940A-4C58-A03E-F94BF9EC4621}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.Utils", "FoodOnline.Utils\FoodOnline.Utils.csproj", "{302E3652-F6E1-417B-9C2B-79CACD5860C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOnline.Domain", "FoodOnline.Domain\FoodOnline.Domain.csproj", "{93349130-6F34-4C36-83F1-F664BCEDB283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.Domain", "FoodOnline.Domain\FoodOnline.Domain.csproj", "{93349130-6F34-4C36-83F1-F664BCEDB283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOnline.DataAccess", "FoodOnline.DataAccess\FoodOnline.DataAccess.csproj", "{73A8F992-FD79-45C1-B1C8-BDE1601A015D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.DataAccess", "FoodOnline.DataAccess\FoodOnline.DataAccess.csproj", "{73A8F992-FD79-45C1-B1C8-BDE1601A015D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOnline.Infrastructure", "FoodOnline.Infrastructure\FoodOnline.Infrastructure.csproj", "{B33C0AA3-1B88-4A2C-A3DE-EE8CFD13C2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.Infrastructure", "FoodOnline.Infrastructure\FoodOnline.Infrastructure.csproj", "{B33C0AA3-1B88-4A2C-A3DE-EE8CFD13C2D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOnline.UI", "FoodOnline.UI\FoodOnline.UI.csproj", "{F158D8E8-AD9A-4C7F-8382-98C651BFB448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOnline.UI", "FoodOnline.UI\FoodOnline.UI.csproj", "{F158D8E8-AD9A-4C7F-8382-98C651BFB448}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CD88FD28-59FA-49AB-9C9E-4C6BA5402C29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{7C0A8F96-940A-4C58-A03E-F94BF9EC4621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C0A8F96-940A-4C58-A03E-F94BF9EC4621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C0A8F96-940A-4C58-A03E-F94BF9EC4621}.Release|Any CPU.Build.0 = Release|Any CPU
-		{302E3652-F6E1-417B-9C2B-79CACD5860C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{302E3652-F6E1-417B-9C2B-79CACD5860C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{302E3652-F6E1-417B-9C2B-79CACD5860C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{302E3652-F6E1-417B-9C2B-79CACD5860C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93349130-6F34-4C36-83F1-F664BCEDB283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93349130-6F34-4C36-83F1-F664BCEDB283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93349130-6F34-4C36-83F1-F664BCEDB283}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +51,10 @@ Global
 		{F158D8E8-AD9A-4C7F-8382-98C651BFB448}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F158D8E8-AD9A-4C7F-8382-98C651BFB448}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F158D8E8-AD9A-4C7F-8382-98C651BFB448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD88FD28-59FA-49AB-9C9E-4C6BA5402C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD88FD28-59FA-49AB-9C9E-4C6BA5402C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD88FD28-59FA-49AB-9C9E-4C6BA5402C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD88FD28-59FA-49AB-9C9E-4C6BA5402C29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,7 +65,6 @@ Global
 		{A1144B45-54D8-44F2-AFE9-D87DA0E2273D} = {E7A96230-F778-439E-A22A-1214CEDB0CA4}
 		{B0EF073C-7B77-4257-8506-F13427B0F54F} = {E7A96230-F778-439E-A22A-1214CEDB0CA4}
 		{7C0A8F96-940A-4C58-A03E-F94BF9EC4621} = {7CC10B15-9B53-4285-8B54-7607993CAF4C}
-		{302E3652-F6E1-417B-9C2B-79CACD5860C7} = {7CC10B15-9B53-4285-8B54-7607993CAF4C}
 		{93349130-6F34-4C36-83F1-F664BCEDB283} = {222A9C27-6D3B-4318-AA2D-5A2697DE870D}
 		{73A8F992-FD79-45C1-B1C8-BDE1601A015D} = {A1144B45-54D8-44F2-AFE9-D87DA0E2273D}
 		{B33C0AA3-1B88-4A2C-A3DE-EE8CFD13C2D7} = {A1144B45-54D8-44F2-AFE9-D87DA0E2273D}

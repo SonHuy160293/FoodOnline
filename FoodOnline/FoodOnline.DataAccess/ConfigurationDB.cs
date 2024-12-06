@@ -41,14 +41,14 @@ namespace FoodOnline.DataAccess
                         });
                     }
 
-                    if (await userManager.FindByNameAsync(userDefault.Username) == null)
+                    if (await userManager.FindByEmailAsync(userDefault.Username) == null)
                     {
                         var user = new ApplicationUser()
                         {
-                            UserName = userDefault.Username,
+                            Email = userDefault.Username,
                             IsActive = true,
-                            AccessFailedCount = 0
-
+                            AccessFailedCount = 0,
+                            UserName = "admin"
                         };
 
                         var identityUser = await userManager.CreateAsync(user, userDefault.Password);
